@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>¿Quieres ser mi novia?</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #ffe6f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #e60073;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .buttons {
+      position: relative;
+      width: 100%;
+      height: 200px;
+    }
+
+    button {
+      font-size: 1.3rem;
+      padding: 15px 25px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      position: absolute;
+      transition: top 0.2s, left 0.2s;
+    }
+
+    .yes {
+      background-color: #ff66a3;
+      color: white;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 50px;
+    }
+
+    .yes:hover {
+      background-color: #e60073;
+    }
+
+    .no {
+      background-color: #ccc;
+      color: black;
+      left: 60%;
+      top: 50px;
+    }
+
+    .no:hover {
+      background-color: #999;
+    }
+  </style>
+</head>
+<body>
+  <h1>¿Quieres ser mi novia?</h1>
+  <div class="buttons">
+    <button class="yes" onclick="alert('Igual ya somos novios <3')">Sí mi amor</button>
+    <button class="no" id="noButton">No papu</button>
+  </div>
+
+  <script>
+    const noButton = document.getElementById('noButton');
+
+    function moveButtonAway() {
+      const moveX = Math.floor(window.innerWidth * 0.5); // 50% del ancho
+      const moveY = Math.floor(window.innerHeight * 0.3); // 30% del alto
+
+      let randomX = Math.floor(Math.random() * moveX);
+      let randomY = Math.floor(Math.random() * moveY);
+
+      // Evitar que se salga de pantalla
+      const maxX = window.innerWidth - noButton.offsetWidth - 20;
+      const maxY = window.innerHeight - noButton.offsetHeight - 20;
+
+      // Ajustar si se pasa
+      if (randomX > maxX) randomX = maxX;
+      if (randomY > maxY) randomY = maxY;
+
+      noButton.style.left = `${randomX}px`;
+      noButton.style.top = `${randomY}px`;
+    }
+
+    noButton.addEventListener('mouseenter', moveButtonAway);
+  </script>
+</body>
+</html>

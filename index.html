@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>¿Quieres ser mi novia?</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #ffe6f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #e60073;
+      margin-bottom: 40px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 30px;
+      position: relative;
+      width: 300px;
+      height: 60px;
+    }
+
+    button {
+      font-size: 1.5rem;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: absolute;
+      top: 0;
+    }
+
+    .yes {
+      background-color: #ff66a3;
+      color: white;
+      left: 0;
+      position: relative;
+    }
+
+    .yes:hover {
+      background-color: #e60073;
+    }
+
+    .no {
+      background-color: #ccc;
+      color: black;
+      left: 160px;
+    }
+
+    .no:hover {
+      background-color: #999;
+    }
+  </style>
+</head>
+<body>
+  <h1>¿Quieres ser mi novia?</h1>
+  <div class="buttons" id="buttonContainer">
+    <button class="yes" onclick="alert('¡Yay! 💖')">Sí</button>
+    <button class="no" id="noButton" onclick="alert('😢 Bueno...')">No</button>
+  </div>
+
+  <script>
+    const noButton = document.getElementById('noButton');
+    const container = document.getElementById('buttonContainer');
+
+    container.addEventListener('mousemove', (e) => {
+      const rect = noButton.getBoundingClientRect();
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      const buttonX = rect.left + rect.width / 2;
+      const buttonY = rect.top + rect.height / 2;
+
+      const distanceX = mouseX - buttonX;
+      const distanceY = mouseY - buttonY;
+      const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+      const moveThreshold = 100;
+      if (distance < moveThreshold) {
+        const moveX = (distanceX / distance) * 50;
+        const moveY = (distanceY / distance) * 50;
+
+        let newLeft = noButton.offsetLeft - moveX;
+        let newTop = noButton.offsetTop - moveY;
+
+        const containerRect = container.getBoundingClientRect();
+
+        if (newLeft < 0) newLeft = 0;
+        if (newLeft > container.clientWidth - noButton.clientWidth) newLeft = container.clientWidth - noButton.clientWidth;
+        if (newTop < 0) newTop = 0;
+        if (newTop > container.clientHeight - noButton.clientHeight) newTop = container.clientHeight - noButton.clientHeight;
+
+        noButton.style.left = newLeft + 'px';
+        noButton.style.top = newTop + 'px';
+      }
+    });
+
+    container.addEventListener('mouseleave', () => {
+      noButton.style.left = '160px';
+      noButton.style.top = '0';
+    });
+  </script>
+</body>
+</html>
